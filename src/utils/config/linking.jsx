@@ -7,6 +7,12 @@ const config = {
         Home: "",
       },
     },
+    CommunityRoute: {
+      screens: {
+        Community: "community",
+        CommunityAdd: "community/add",
+      },
+    },
     AccountRoute: {
       screens: {
         Account: "account",
