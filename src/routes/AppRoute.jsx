@@ -1,53 +1,20 @@
-import React, { useCallback } from "react";
-import { AppStack, AppTab } from "../utils/constant/navigation";
-import Home from "../pages/app/home/Home";
-import { Image } from "react-native";
+import React from "react";
+import { AppTab } from "../utils/constant/navigation";
 import { colors } from "../themes/colors";
-import Account from "../pages/app/account/Account";
-import AccountEdit from "../pages/app/account/AccountEdit";
-import { CommonActions, useFocusEffect } from "@react-navigation/native";
-import AccountEditAddress from "../pages/app/account/AccountEditAddress";
-import Community from "../pages/app/community/Community";
-import CommunityAdd from "../pages/app/community/CommunityAdd";
+import HomeRoute from "./HomeRoute";
+import CommunityRoute from "./CommunityRoute";
+import AccountRoute from "./AccountRoute";
+import TabBarIcon from "../components/atom/TabBarIcon";
+import AuctionRoute from "./AuctionRoute";
 
 const AppRoute = () => {
   return (
     <AppTab.Navigator
       initialRouteName="HomeRoute"
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => {
-          if (route.name === "HomeRoute") {
-            return (
-              <Image
-                source={
-                  focused
-                    ? require("../assets/images/homeActive.png")
-                    : require("../assets/images/homeInactive.png")
-                }
-              />
-            );
-          } else if (route.name === "AccountRoute") {
-            return (
-              <Image
-                source={
-                  focused
-                    ? require("../assets/images/accountActive.png")
-                    : require("../assets/images/accountInactive.png")
-                }
-              />
-            );
-          } else if (route.name === "CommunityRoute") {
-            return (
-              <Image
-                source={
-                  focused
-                    ? require("../assets/images/communityActive.png")
-                    : require("../assets/images/communityInactive.png")
-                }
-              />
-            );
-          }
-        },
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon focused={focused} name={route.name} />
+        ),
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
@@ -76,84 +43,16 @@ const AppRoute = () => {
         options={{ headerShown: false }}
       />
       <AppTab.Screen
+        name="AuctionRoute"
+        component={AuctionRoute}
+        options={{ headerShown: false }}
+      />
+      <AppTab.Screen
         name="AccountRoute"
         component={AccountRoute}
         options={{ headerShown: false }}
       />
     </AppTab.Navigator>
-  );
-};
-
-const HomeRoute = () => {
-  return (
-    <AppStack.Navigator initialRouteName="Home">
-      <AppStack.Screen
-        name="Home"
-        component={Home}
-        options={{ headerShown: false }}
-      />
-    </AppStack.Navigator>
-  );
-};
-
-const AccountRoute = ({ navigation }) => {
-  useFocusEffect(
-    useCallback(() => {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "Account" }],
-        })
-      );
-    }, [navigation])
-  );
-
-  return (
-    <AppStack.Navigator initialRouteName="Account">
-      <AppStack.Screen
-        name="Account"
-        component={Account}
-        options={{ headerShown: false }}
-      />
-      <AppStack.Screen
-        name="AccountEdit"
-        component={AccountEdit}
-        options={{ headerShown: false }}
-      />
-      <AppStack.Screen
-        name="AccountEditAddress"
-        component={AccountEditAddress}
-        options={{ headerShown: false }}
-      />
-    </AppStack.Navigator>
-  );
-};
-
-const CommunityRoute = () => {
-  useFocusEffect(
-    useCallback(() => {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "Community" }],
-        })
-      );
-    }, [navigation])
-  );
-
-  return (
-    <AppStack.Navigator initialRouteName="Community">
-      <AppStack.Screen
-        name="Community"
-        component={Community}
-        options={{ headerShown: false }}
-      />
-      <AppStack.Screen
-        name="CommunityAdd"
-        component={CommunityAdd}
-        options={{ headerShown: false }}
-      />
-    </AppStack.Navigator>
   );
 };
 

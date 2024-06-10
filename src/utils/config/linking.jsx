@@ -11,6 +11,7 @@ const config = {
       screens: {
         Community: "community",
         CommunityAdd: "community/add",
+        CommunitySearch: "community/search",
       },
     },
     AccountRoute: {
