@@ -2,21 +2,22 @@ const config = {
   screens: {
     Login: "login",
     Register: "register",
-    HomeRoute: {
+    AppTabRoute: {
       screens: {
         Home: "",
+        Community: "community",
+        Auction: "auction",
+        Account: "account",
       },
     },
     CommunityRoute: {
       screens: {
-        Community: "community",
         CommunityAdd: "community/add",
         CommunitySearch: "community/search",
       },
     },
     AccountRoute: {
       screens: {
-        Account: "account",
         AccountEdit: "account/edit",
         AccountEditAddress: "account/edit/address",
       },

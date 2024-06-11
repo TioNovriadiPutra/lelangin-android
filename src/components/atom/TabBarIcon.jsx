@@ -2,7 +2,7 @@ import { Image, StyleSheet } from "react-native";
 import React from "react";
 
 const TabBarIcon = ({ focused, name }) => {
-  if (name === "HomeRoute") {
+  if (name === "Home") {
     return (
       <Image
         source={
@@ -13,7 +13,7 @@ const TabBarIcon = ({ focused, name }) => {
         style={styles.icon}
       />
     );
-  } else if (name === "AccountRoute") {
+  } else if (name === "Account") {
     return (
       <Image
         source={
@@ -24,7 +24,7 @@ const TabBarIcon = ({ focused, name }) => {
         style={styles.icon}
       />
     );
-  } else if (name === "CommunityRoute") {
+  } else if (name === "Community") {
     return (
       <Image
         source={
@@ -35,7 +35,7 @@ const TabBarIcon = ({ focused, name }) => {
         style={styles.icon}
       />
     );
-  } else if (name === "AuctionRoute") {
+  } else if (name === "Auction") {
     return (
       <Image
         source={

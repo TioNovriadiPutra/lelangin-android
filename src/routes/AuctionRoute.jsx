@@ -1,25 +1,12 @@
-import { CommonActions, useFocusEffect } from "@react-navigation/native";
-import Auction from "../pages/app/auction/Auction";
+import AuctionAdd from "../pages/app/auction/AuctionAdd";
 import { AppStack } from "../utils/constant/navigation";
-import { useCallback } from "react";
 
-const AuctionRoute = ({ navigation }) => {
-  useFocusEffect(
-    useCallback(() => {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "Auction" }],
-        })
-      );
-    }, [navigation])
-  );
-
+const AuctionRoute = () => {
   return (
-    <AppStack.Navigator initialRouteName="Auction">
+    <AppStack.Navigator initialRouteName="AuctionAdd">
       <AppStack.Screen
-        name="Auction"
-        component={Auction}
+        name="AuctionAdd"
+        component={AuctionAdd}
         options={{ headerShown: false }}
       />
     </AppStack.Navigator>

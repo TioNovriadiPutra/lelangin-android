@@ -1,29 +1,10 @@
-import { CommonActions, useFocusEffect } from "@react-navigation/native";
-import Account from "../pages/app/account/Account";
 import AccountEdit from "../pages/app/account/AccountEdit";
 import AccountEditAddress from "../pages/app/account/AccountEditAddress";
 import { AppStack } from "../utils/constant/navigation";
-import { useCallback } from "react";
 
-const AccountRoute = ({ navigation }) => {
-  useFocusEffect(
-    useCallback(() => {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "Account" }],
-        })
-      );
-    }, [navigation])
-  );
-
+const AccountRoute = () => {
   return (
-    <AppStack.Navigator initialRouteName="Account">
-      <AppStack.Screen
-        name="Account"
-        component={Account}
-        options={{ headerShown: false }}
-      />
+    <AppStack.Navigator>
       <AppStack.Screen
         name="AccountEdit"
         component={AccountEdit}

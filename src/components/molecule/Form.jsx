@@ -5,6 +5,7 @@ import LelanginDropdown from "../atom/LelanginDropdown";
 import LelanginDatePicker from "../atom/LelanginDatePicker";
 import useCustomForm from "../../hooks/useCustomForm";
 import LelanginProfilePicker from "../atom/LelanginProfilePicker";
+import LelanginThumbnailInput from "../atom/LelanginThumbnailInput";
 
 const Form = ({ inputsData, control }) => {
   const { onHandleValidation } = useCustomForm();
@@ -34,6 +35,14 @@ const Form = ({ inputsData, control }) => {
         } else if (item.type === "profile") {
           return (
             <LelanginProfilePicker
+              inputData={item}
+              control={control}
+              validationError={onHandleValidation(item.name)}
+            />
+          );
+        } else if (item.type === "thumbnail") {
+          return (
+            <LelanginThumbnailInput
               inputData={item}
               control={control}
               validationError={onHandleValidation(item.name)}

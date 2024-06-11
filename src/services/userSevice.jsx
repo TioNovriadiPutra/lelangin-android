@@ -1,5 +1,6 @@
 import { API_ENDPOINT } from "../utils/config/api";
 import { axiosInstance } from "../utils/config/axios";
+import { getImageBlob } from "../utils/helper/getImageBlob";
 
 export const getUserProfile = async (token) => {
   try {
@@ -41,8 +42,7 @@ export const updateUserProfile = async (token, data) => {
     reqBody.append("fullName", data.fullName);
 
     if (typeof data.profilePic === "object") {
-      const fetchImage = await fetch(data.profilePic.uri);
-      const blob = await fetchImage.blob();
+      const blob = await getImageBlob(data.profilePic.uri);
 
       reqBody.append("profilePicChange", true);
       reqBody.append("profilePic", blob);

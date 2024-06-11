@@ -136,3 +136,30 @@ export const accountEditAddressForm = {
     address: "",
   },
 };
+
+export const communityAddForm = {
+  headerData: {
+    withBack: true,
+    title: "Create Community",
+    buttonData: {
+      type: "text",
+      label: "Create",
+    },
+  },
+  inputs: [
+    {
+      type: "thumbnail",
+      name: "communityImage",
+      placeholder: "Community Image",
+    },
+    {
+      type: "text",
+      name: "communityName",
+      placeholder: "Community Name",
+    },
+  ],
+  defaultValues: {
+    communityImage: null,
+    communityName: "",
+  },
+};

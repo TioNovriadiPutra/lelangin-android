@@ -1,5 +1,10 @@
 import { atom } from "recoil";
 
+export const tabBarIndexState = atom({
+  key: "tabBarIndex",
+  default: 0,
+});
+
 export const isLoadingState = atom({
   key: "isLoadingState",
   default: false,
