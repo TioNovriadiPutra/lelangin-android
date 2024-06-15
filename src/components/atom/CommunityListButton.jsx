@@ -1,19 +1,43 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { fonts } from "../../themes/fonts";
 import { colors } from "../../themes/colors";
+import { API_ENDPOINT } from "../../utils/config/api";
+import { useSetRecoilState } from "recoil";
+import { currentCommunityState } from "../../store/pageState";
+import { queryClient } from "../../utils/config/client";
 
-const CommunityListButton = ({ buttonData, fetchImage }) => {
-  const { uri, isLoading } = fetchImage(buttonData.community_image);
+const CommunityListButton = ({ buttonData }) => {
+  const setCurrentCommunity = useSetRecoilState(currentCommunityState);
+
+  const onHandlePress = async () => {
+    setCurrentCommunity(buttonData.id);
+
+    await queryClient.refetchQueries({
+      queryKey: ["getAuctionsByCommunity"],
+    });
+  };
 
   return (
-    <View style={styles.container}>
-      {!isLoading && <Image source={{ uri }} style={styles.image} />}
+    <TouchableOpacity style={styles.container} onPress={onHandlePress}>
+      <Image
+        source={{
+          uri: `${process.env.EXPO_PUBLIC_API_URL}${API_ENDPOINT.getCommunityPic}/${buttonData.community_image}`,
+        }}
+        style={styles.image}
+      />
 
       <Text style={styles.label} ellipsizeMode="tail" numberOfLines={1}>
         {buttonData.community_name}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

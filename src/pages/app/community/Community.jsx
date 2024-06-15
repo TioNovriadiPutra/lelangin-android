@@ -6,10 +6,11 @@ import { communityHeader } from "../../../utils/constant/header";
 import CommunityList from "../../../components/molecule/CommunityList";
 import CommunityListSkeleton from "../../../components/skeleton/CommunityListSkeleton";
 import useCommunityController from "../../../controllers/communityController";
+import AuctionList from "../../../components/molecule/AuctionList";
+import AuctionListSkeleton from "../../../components/skeleton/AuctionListSkeleton";
 
 const Community = () => {
-  const { useGetCommunitiesQuery, useGetCommunityPicQuery } =
-    useCommunityController();
+  const { useGetCommunitiesQuery } = useCommunityController();
 
   const { communityData, isLoading } = useGetCommunitiesQuery();
 
@@ -20,11 +21,10 @@ const Community = () => {
       {isLoading ? (
         <CommunityListSkeleton />
       ) : (
-        <CommunityList
-          listData={communityData}
-          fetchImage={useGetCommunityPicQuery}
-        />
+        <CommunityList listData={communityData} />
       )}
+
+      {isLoading ? <AuctionListSkeleton /> : <AuctionList />}
     </MainContainer>
   );
 };

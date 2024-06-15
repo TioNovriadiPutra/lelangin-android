@@ -16,26 +16,6 @@ export const getCommunities = async (token) => {
   }
 };
 
-export const getCommunityPic = async (token, url) => {
-  try {
-    const response = await axiosInstance.get(
-      `${API_ENDPOINT.getCommunityPic}/${url}`,
-      {
-        responseType: "blob",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const uri = URL.createObjectURL(response.data);
-
-    return uri;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-
 export const addCommunity = async (token, data) => {
   try {
     const reqBody = new FormData();

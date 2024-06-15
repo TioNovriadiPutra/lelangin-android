@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getCommunities, getCommunityPic } from "../services/communityService";
+import { getCommunities } from "../services/communityService";
 
 const useCommunityModel = () => {
   const useGetCommunities = (token) => {
@@ -9,16 +9,8 @@ const useCommunityModel = () => {
     });
   };
 
-  const useGetCommunityPic = (token, url) => {
-    return useQuery({
-      queryKey: ["getCommunityPic"],
-      queryFn: () => getCommunityPic(token, url),
-    });
-  };
-
   return {
     useGetCommunities,
-    useGetCommunityPic,
   };
 };
 

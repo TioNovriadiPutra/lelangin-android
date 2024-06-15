@@ -9,20 +9,22 @@ const DATA = Array.from({ length: 10 }, (_, i) => ({
 
 const CommunityListSkeleton = () => {
   return (
-    <FlatList
-      data={DATA}
-      keyExtractor={(_, index) => index.toString()}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.list}
-      renderItem={({ item }) => (
-        <View>
-          <Skeleton width={68} height={68} circle />
+    <View>
+      <FlatList
+        data={DATA}
+        keyExtractor={(_, index) => index.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.list}
+        renderItem={({ item }) => (
+          <View>
+            <Skeleton width={68} height={68} circle />
 
-          <Skeleton width={68} height={17} />
-        </View>
-      )}
-    />
+            <Skeleton width={68} height={17} />
+          </View>
+        )}
+      />
+    </View>
   );
 };
 

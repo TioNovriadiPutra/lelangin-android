@@ -1,19 +1,19 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
 import CommunityListButton from "../atom/CommunityListButton";
 
-const CommunityList = ({ listData, fetchImage }) => {
+const CommunityList = ({ listData }) => {
   return (
-    <FlatList
-      data={listData}
-      keyExtractor={(_, index) => index.toString()}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.list}
-      renderItem={({ item }) => (
-        <CommunityListButton fetchImage={fetchImage} buttonData={item} />
-      )}
-    />
+    <View>
+      <FlatList
+        data={listData}
+        keyExtractor={(_, index) => index.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.list}
+        renderItem={({ item }) => <CommunityListButton buttonData={item} />}
+      />
+    </View>
   );
 };
 

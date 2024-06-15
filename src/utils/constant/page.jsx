@@ -1,3 +1,8 @@
+export const dummyData = Array.from({ length: 10 }, (_, i) => ({
+  key: `${i + 1}`,
+  value: i + 1,
+}));
+
 export const accountMenuList = [
   {
     icon: require("../../assets/images/address.png"),

@@ -19,3 +19,8 @@ export const confirmationDataState = atom({
   key: "confirmationDataState",
   default: null,
 });
+
+export const currentCommunityState = atom({
+  key: "currentCommunityState",
+  default: null,
+});

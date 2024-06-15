@@ -2,8 +2,6 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import React from "react";
 
 const TabAddButton = ({ navigation }) => {
-  console.log(navigation.getState());
-
   const onHandleAdd = () => {
     const current = navigation.getState().index;
 

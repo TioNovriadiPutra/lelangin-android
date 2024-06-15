@@ -6,7 +6,6 @@ import Auction from "../pages/app/auction/Auction";
 import Account from "../pages/app/account/Account";
 import { colors } from "../themes/colors";
 import TabBarIcon from "../components/atom/TabBarIcon";
-import Add from "../pages/app/add/Add";
 import TabAddButton from "../components/atom/TabAddButton";
 
 const AppTabRoute = () => {

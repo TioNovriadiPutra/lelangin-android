@@ -4,11 +4,15 @@ import useControllerMutation from "../hooks/useControllerMutation";
 import { useNavigation } from "@react-navigation/native";
 import useCommunityModel from "../models/communityModel";
 import { queryClient } from "../utils/config/client";
+import { useSetRecoilState } from "recoil";
+import { currentCommunityState } from "../store/pageState";
 
 const useCommunityController = () => {
+  const setCurrentCommunity = useSetRecoilState(currentCommunityState);
+
   const nav = useNavigation();
 
-  const { useGetCommunities, useGetCommunityPic } = useCommunityModel();
+  const { useGetCommunities } = useCommunityModel();
 
   const { authToken, handleMutate, handleError, handleSuccess, handleSettled } =
     useControllerMutation();
@@ -21,36 +25,17 @@ const useCommunityController = () => {
     if (!isLoading) {
       if (!isError) {
         communityData = data.data;
+
+        if (data.data.length > 0) {
+          setCurrentCommunity(data.data[0].id);
+        }
       } else {
-        console.log(error);
         handleError(error);
       }
     }
 
     return {
       communityData,
-      isLoading,
-    };
-  };
-
-  const useGetCommunityPicQuery = (url) => {
-    const { data, isLoading, isError, error } = useGetCommunityPic(
-      authToken,
-      url
-    );
-
-    let uri = "";
-
-    if (!isLoading) {
-      if (!isError) {
-        uri = data;
-      } else {
-        handleError(error);
-      }
-    }
-
-    return {
-      uri,
       isLoading,
     };
   };
@@ -79,7 +64,6 @@ const useCommunityController = () => {
 
   return {
     useGetCommunitiesQuery,
-    useGetCommunityPicQuery,
     addCommunity: (data) => addCommunityMutation.mutate(data),
   };
 };
