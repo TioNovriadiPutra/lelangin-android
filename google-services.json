@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860529864988",
+    "project_id": "lelangin-adb8a",
+    "storage_bucket": "lelangin-adb8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860529864988:android:318a15e4ddad6303504ad9",
+        "android_client_info": {
+          "package_name": "com.lelangin.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhrocWUQcPvnOrWQendsBJpOg5l80z2uI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
