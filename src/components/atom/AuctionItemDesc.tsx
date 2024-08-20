@@ -1,20 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Auction } from "@interfaces/data/auctionInterface";
 import { fonts } from "@themes/fonts";
 import { colors } from "@themes/colors";
 import useAuctionItemDesc from "@hooks/useAuctionItemDesc";
 import { monyConverter } from "@helpers/converter";
+import { useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "@interfaces/navigationType";
 
 type Props = {
   itemData: Auction;
 };
 
 const AuctionItemDesc = ({ itemData }: Props) => {
+  const nav = useNavigation<AppStackProps>();
+
   const { time, done } = useAuctionItemDesc(itemData.timer);
 
+  const onHandleDetail = () => {
+    nav.navigate("AuctionDetail", {
+      id: itemData.id,
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onHandleDetail}>
       <View style={styles.descContainer}>
         <Text
           style={[
@@ -35,7 +45,7 @@ const AuctionItemDesc = ({ itemData }: Props) => {
           {monyConverter(itemData.highestBid)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

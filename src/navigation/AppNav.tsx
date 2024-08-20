@@ -4,7 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import AuthRoute from "@routes/AuthRoute";
 import { linking } from "@configs/linking";
 import useStarter from "@hooks/useStarter";
-import { DateModal, DropdownModal, LoadingModal } from "@components/organism";
+import {
+  BidModal,
+  DateModal,
+  DropdownModal,
+  LoadingModal,
+} from "@components/organism";
 import { CustomToast } from "@components/molecule";
 import AppRoute from "@routes/AppRoute";
 import { StatusBar } from "expo-status-bar";
@@ -23,6 +28,7 @@ const AppNav = () => {
       <DateModal />
 
       <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+        <BidModal />
         {auth.token ? <AppRoute /> : <AuthRoute />}
       </NavigationContainer>
 

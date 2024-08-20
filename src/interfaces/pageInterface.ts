@@ -24,3 +24,13 @@ export interface AppHeaderButton {
   label?: string;
   color?: string;
 }
+
+export interface BidModal {
+  show: boolean;
+  data: BidModalData;
+}
+
+export interface BidModalData {
+  highestBid: number;
+  onBid: (data: any) => void | null;
+}

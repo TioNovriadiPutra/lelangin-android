@@ -1,7 +1,12 @@
 import { API_ENDPOINT } from "@configs/api";
 import { axiosInstance } from "@configs/axios";
 import { moneyToNumberConverter, uriToBlob } from "@helpers/converter";
-import { AddAuction, AuctionDTO } from "@interfaces/data/auctionInterface";
+import {
+  AddAuction,
+  AuctionDetailDTO,
+  AuctionDTO,
+  BidAuction,
+} from "@interfaces/data/auctionInterface";
 import { CategoryDTO } from "@interfaces/data/categoryInterface";
 import { CommunityDTO } from "@interfaces/data/communityInterface";
 import { AxiosError } from "axios";
@@ -68,6 +73,29 @@ export const getAuctionsByCategory = async (
 
     return response.data;
   } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const getAuctionDetail = async (
+  token: string,
+  id: number
+): Promise<ApiResponse<AuctionDetailDTO>> => {
+  try {
+    const response = await axiosInstance.get(
+      `${API_ENDPOINT.getAuctionsUser}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
     const axiosError = error as AxiosError;
 
     throw axiosError.response.data;
@@ -151,6 +179,30 @@ export const addAuction = async (
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const bidAuction = async (
+  token: string,
+  data: BidAuction,
+  id: number
+) => {
+  try {
+    const response = await axiosInstance.post(
+      `${API_ENDPOINT.bidAuction}/${id}`,
+      data,
+      {
+        headers: {
           Authorization: `Bearer ${token}`,
         },
       }

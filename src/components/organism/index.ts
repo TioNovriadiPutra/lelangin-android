@@ -4,3 +4,6 @@ export { default as DropdownModal } from "./DropdownModal";
 export { default as DateModal } from "./DateModal";
 export { default as AppForm } from "./AppForm";
 export { default as AuctionList } from "./AuctionList";
+export { default as DetailHeader } from "./DetailHeader";
+export { default as DetailContent } from "./DetailContent";
+export { default as BidModal } from "./BidModal";

@@ -12,6 +12,7 @@ const config = {
     },
     CommunityAdd: "community/add",
     AuctionAdd: "auction/add",
+    AuctionDetail: "auction/:id",
     AccountEdit: "account/edit",
     AccountEditAddress: "account/address",
   },

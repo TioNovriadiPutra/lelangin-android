@@ -1,12 +1,13 @@
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, ViewStyle } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   opacity?: number;
+  buttonStyles?: ViewStyle;
 };
 
-const LelanginBackButton = ({ opacity = 1 }: Props) => {
+const LelanginBackButton = ({ opacity = 1, buttonStyles }: Props) => {
   const nav = useNavigation();
 
   const onHandleBack = () => {
@@ -14,7 +15,10 @@ const LelanginBackButton = ({ opacity = 1 }: Props) => {
   };
 
   return (
-    <TouchableOpacity style={{ opacity }} onPress={onHandleBack}>
+    <TouchableOpacity
+      style={[{ opacity }, buttonStyles]}
+      onPress={onHandleBack}
+    >
       <Image source={require("@assets/images/back.png")} />
     </TouchableOpacity>
   );

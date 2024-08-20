@@ -1,18 +1,23 @@
 import { queryClient } from "@configs/client";
 import { addAuctionForm } from "@constants/form";
 import { responseMapper } from "@helpers/mapper";
+import { BidAuction } from "@interfaces/data/auctionInterface";
 import { Category } from "@interfaces/data/categoryInterface";
 import { Community } from "@interfaces/data/communityInterface";
 import { AppStackProps } from "@interfaces/navigationType";
 import { useNavigation } from "@react-navigation/native";
 import {
   addAuction,
+  bidAuction,
+  getAuctionDetail,
   getAuctionDropdown,
   getAuctionsByCategory,
   getAuctionsByCommunity,
   getUserAuctions,
 } from "@services/auctionService";
+import { showBidModalState } from "@store/pageState";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
 
 const useAuctionModel = (
   token: string,
@@ -22,6 +27,8 @@ const useAuctionModel = (
   onSettled: () => void
 ) => {
   const nav = useNavigation<AppStackProps>();
+
+  const setBidModal = useSetRecoilState(showBidModalState);
 
   const useGetUserAuctions = () =>
     useQuery({
@@ -41,6 +48,12 @@ const useAuctionModel = (
       queryKey: ["getAuctionsByCategory", { category }],
       queryFn: () => getAuctionsByCategory(token, category),
       placeholderData: keepPreviousData,
+    });
+
+  const useGetAuctionDetail = (id: number) =>
+    useQuery({
+      queryKey: ["getAuctionDetail"],
+      queryFn: () => getAuctionDetail(token, id),
     });
 
   const useGetAuctionDropdownMutation = () =>
@@ -96,11 +109,29 @@ const useAuctionModel = (
     onSettled,
   });
 
+  const useBidAuctionMutation = () =>
+    useMutation({
+      mutationFn: (data: { id: number; data: BidAuction }) =>
+        bidAuction(token, data.data, data.id),
+      onMutate,
+      onSuccess: (response) => {
+        onSuccess(response.message);
+        setBidModal(false);
+        nav.navigate("MainApp", {
+          screen: "Auction",
+        });
+      },
+      onError,
+      onSettled,
+    });
+
   return {
     useGetUserAuctions,
     useGetAuctionsByCommunity,
     useGetAuctionsByCategory,
+    useGetAuctionDetail,
     useGetAuctionDropdownMutation,
+    useBidAuctionMutation,
   };
 };
 

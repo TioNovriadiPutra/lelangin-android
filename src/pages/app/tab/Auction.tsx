@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import MainContainer from "@containers/MainContainer";
 import useAuctionController from "@controllers/auctionController";

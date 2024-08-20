@@ -10,6 +10,7 @@ export type AppStackParamList = {
   MainApp: NavigatorScreenParams<MainTabParamList>;
   CommunityAdd: undefined;
   AuctionAdd: undefined;
+  AuctionDetail: { id: number };
   AccountEdit: undefined;
   AccountEditAddress: undefined;
 };

@@ -6,3 +6,4 @@ export { default as AuctionAdd } from "./AuctionAdd";
 export { default as Account } from "./tab/Account";
 export { default as AccountEdit } from "./AccountEdit";
 export { default as AccountEditAddress } from "./AccountEditAddress";
+export { default as AuctionDetail } from "./AuctionDetail";

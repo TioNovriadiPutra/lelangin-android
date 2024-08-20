@@ -6,6 +6,7 @@ import {
   AccountEditAddress,
   Auction,
   AuctionAdd,
+  AuctionDetail,
   Community,
   CommunityAdd,
   Home,
@@ -121,6 +122,11 @@ const AppRoute = () => {
       <AppStack.Screen
         name="AuctionAdd"
         component={AuctionAdd}
+        options={{ headerShown: false }}
+      />
+      <AppStack.Screen
+        name="AuctionDetail"
+        component={AuctionDetail}
         options={{ headerShown: false }}
       />
       <AppStack.Screen
