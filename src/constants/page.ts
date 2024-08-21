@@ -11,6 +11,7 @@ export const accountMenu: AccountMenu[] = [
     icon: require("@assets/images/order.png"),
     label: "My Orders",
     subLabel: "Orders & invoices",
+    destination: "AccountMyOrder",
   },
   {
     icon: require("@assets/images/help.png"),

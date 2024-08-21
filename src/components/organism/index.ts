@@ -7,3 +7,4 @@ export { default as AuctionList } from "./AuctionList";
 export { default as DetailHeader } from "./DetailHeader";
 export { default as DetailContent } from "./DetailContent";
 export { default as BidModal } from "./BidModal";
+export { default as ApproveModal } from "./ApproveModal";

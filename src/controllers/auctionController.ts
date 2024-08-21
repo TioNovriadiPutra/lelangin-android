@@ -20,8 +20,12 @@ const useAuctionController = () => {
     useGetAuctionsByCommunity,
     useGetAuctionsByCategory,
     useGetAuctionDetail,
+    useGetUserBids,
+    useGetApproveAuctions,
     useGetAuctionDropdownMutation,
     useBidAuctionMutation,
+    useApproveAuctionMutation,
+    usePaymentAuctionMutation,
   } = useAuctionModel(auth.token, onMutate, onSuccess, onError, onSettled);
 
   const useGetUserAuctionsService = () => {
@@ -100,6 +104,7 @@ const useAuctionController = () => {
       timer: "",
       highestBid: 0,
       description: "",
+      approve: false,
       profileId: 0,
       galleries: [],
     };
@@ -120,18 +125,68 @@ const useAuctionController = () => {
     };
   };
 
+  const useGetUserBidsService = () => {
+    const { data, isLoading, isError, error } = useGetUserBids();
+
+    let finalData: Auction[] = [];
+
+    if (isError) {
+      onError(error);
+    } else {
+      if (data) {
+        const convert = responseMapper<Auction[]>(data.data);
+
+        finalData = convert;
+      }
+    }
+
+    return {
+      finalData,
+      isLoading,
+    };
+  };
+
+  const useGetApproveAuctionsService = () => {
+    const { data, isLoading, isError, error } = useGetApproveAuctions();
+
+    let finalData: Auction[] = [];
+
+    if (isError) {
+      onError(error);
+    } else {
+      if (data) {
+        const convert = responseMapper<Auction[]>(data.data);
+
+        finalData = convert;
+      }
+    }
+
+    return {
+      finalData,
+      isLoading,
+    };
+  };
+
   const getAuctionDropdownMutation = useGetAuctionDropdownMutation();
 
   const bidAuctionMutation = useBidAuctionMutation();
+
+  const approveAuctionMutation = useApproveAuctionMutation();
+
+  const paymentAuctionMutation = usePaymentAuctionMutation();
 
   return {
     useGetUserAuctionsService,
     useGetAuctionsByCommunityService,
     useGetAuctionsByCategoryService,
+    useGetUserBidsService,
+    useGetApproveAuctionsService,
     useGetAuctionDetailService,
     getAuctionDropdownService: () => getAuctionDropdownMutation.mutate(),
     bidAuctionService: (data: { data: BidAuction; id: number }) =>
       bidAuctionMutation.mutate(data),
+    approveAuctionService: (id: number) => approveAuctionMutation.mutate(id),
+    paymentAuctionService: (id: number) => paymentAuctionMutation.mutate(id),
   };
 };
 

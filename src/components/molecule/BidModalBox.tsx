@@ -5,16 +5,22 @@ import { fonts } from "@themes/fonts";
 import {
   CurrentBid,
   LelanginBackButton,
-  LelanginTextInput,
+  LelanginButton,
+  LelanginMoneyInput,
 } from "@components/atom";
 import { BidModalData } from "@interfaces/pageInterface";
 import { useForm } from "react-hook-form";
+import { useRecoilValue } from "recoil";
+import { validationErrorState } from "@store/formState";
 
 type Props = {
   modalData: BidModalData;
+  onClose: () => void;
 };
 
-const BidModalBox = ({ modalData }: Props) => {
+const BidModalBox = ({ modalData, onClose }: Props) => {
+  const validationError = useRecoilValue(validationErrorState);
+
   const { control, handleSubmit } = useForm({
     defaultValues: {
       nominal: undefined,
@@ -23,19 +29,34 @@ const BidModalBox = ({ modalData }: Props) => {
 
   return (
     <View style={styles.container}>
-      <LelanginBackButton buttonStyles={styles.back} />
+      <LelanginBackButton buttonStyles={styles.back} onBack={onClose} />
 
       <Text style={styles.title}>Place Bid</Text>
 
       <CurrentBid highestBid={modalData.highestBid} />
 
-      <LelanginTextInput
+      <LelanginMoneyInput
         inputData={{
           type: "currency",
           name: "nominal",
           placeholder: "Nominal",
         }}
         control={control}
+        align="center"
+        validationError={
+          validationError
+            ? validationError.find((error) => error.field === "nominal")
+            : undefined
+        }
+      />
+
+      <LelanginButton
+        buttonData={{
+          label: "Place Bid",
+          color: colors.Main,
+        }}
+        buttonStyles={styles.button}
+        onPress={handleSubmit((data: any) => modalData.onBid(data))}
       />
     </View>
   );
@@ -61,5 +82,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.Black,
     textAlign: "center",
+  },
+  button: {
+    marginTop: 68,
+    width: 184,
   },
 });

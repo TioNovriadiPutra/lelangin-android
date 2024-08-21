@@ -11,8 +11,17 @@ export type AppStackParamList = {
   CommunityAdd: undefined;
   AuctionAdd: undefined;
   AuctionDetail: { id: number };
+  AuctionPayment: {
+    id: number;
+    auctionName: string;
+    highestBid: number;
+    status: string;
+    galleries: string[];
+  };
   AccountEdit: undefined;
   AccountEditAddress: undefined;
+  AccountMyOrder: undefined;
+  SuccessPage: undefined;
 };
 
 export type MainTabParamList = {

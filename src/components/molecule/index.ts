@@ -18,3 +18,6 @@ export { default as DetailBox } from "./DetailBox";
 export { default as DetailDescription } from "./DetailDescription";
 export { default as DetailFooter } from "./DetailFooter";
 export { default as BidModalBox } from "./BidModalBox";
+export { default as ApproveModalBox } from "./ApproveModalBox";
+export { default as PaymentItem } from "./PaymentItem";
+export { default as Summary } from "./Summary";

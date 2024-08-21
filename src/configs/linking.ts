@@ -13,8 +13,11 @@ const config = {
     CommunityAdd: "community/add",
     AuctionAdd: "auction/add",
     AuctionDetail: "auction/:id",
+    AuctionPayment: "auction/payment/:id",
     AccountEdit: "account/edit",
     AccountEditAddress: "account/address",
+    AccountMyOrder: "account/order",
+    SuccessPage: "success",
   },
 };
 

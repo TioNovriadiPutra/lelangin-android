@@ -13,7 +13,7 @@ import { AxiosError } from "axios";
 
 export const getUserAuctions = async (
   token: string
-): Promise<ApiResponse<AuctionDTO>> => {
+): Promise<ApiResponse<AuctionDTO[]>> => {
   try {
     const response = await axiosInstance.get(API_ENDPOINT.getAuctionsUser, {
       headers: {
@@ -32,7 +32,7 @@ export const getUserAuctions = async (
 export const getAuctionsByCommunity = async (
   token: string,
   id: number
-): Promise<ApiResponse<AuctionDTO>> => {
+): Promise<ApiResponse<AuctionDTO[]>> => {
   try {
     const response = await axiosInstance.get(
       API_ENDPOINT.getAuctionsByCommunity,
@@ -57,7 +57,7 @@ export const getAuctionsByCommunity = async (
 export const getAuctionsByCategory = async (
   token: string,
   id: number
-): Promise<ApiResponse<AuctionDTO>> => {
+): Promise<ApiResponse<AuctionDTO[]>> => {
   try {
     const response = await axiosInstance.get(
       API_ENDPOINT.getAuctionsByCategory,
@@ -132,6 +132,42 @@ export const getAuctionDropdown = async (
   }
 };
 
+export const getUserBids = async (
+  token: string
+): Promise<ApiResponse<AuctionDTO[]>> => {
+  try {
+    const response = await axiosInstance.get(API_ENDPOINT.bidAuction, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const getApproveAuctions = async (
+  token: string
+): Promise<ApiResponse<AuctionDTO[]>> => {
+  try {
+    const response = await axiosInstance.get(API_ENDPOINT.getApproveAuctions, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
 export const addAuction = async (
   token: string,
   data: AddAuction
@@ -198,9 +234,57 @@ export const bidAuction = async (
   id: number
 ) => {
   try {
+    const reqBody = {
+      nominal: data.nominal ? moneyToNumberConverter(data.nominal) : null,
+    };
+
     const response = await axiosInstance.post(
       `${API_ENDPOINT.bidAuction}/${id}`,
-      data,
+      reqBody,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const approveAuction = async (
+  token: string,
+  id: number
+): Promise<ApiResponse> => {
+  try {
+    const response = await axiosInstance.get(
+      `${API_ENDPOINT.bidAuction}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const paymentAuction = async (
+  token: string,
+  id: number
+): Promise<ApiResponse> => {
+  try {
+    const response = await axiosInstance.get(
+      `${API_ENDPOINT.paymentAuction}/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -14,9 +14,15 @@ type Props = {
   inputData: InputType;
   control: Control<any, any>;
   validationError?: ValidationError;
+  align?: "center" | "auto";
 };
 
-const LelanginMoneyInput = ({ inputData, control, validationError }: Props) => {
+const LelanginMoneyInput = ({
+  inputData,
+  control,
+  validationError,
+  align = "auto",
+}: Props) => {
   const { field } = useController({
     name: inputData.name,
     control,
@@ -43,7 +49,7 @@ const LelanginMoneyInput = ({ inputData, control, validationError }: Props) => {
         placeholder={inputData.placeholder}
         placeholderTextColor={colors.Placeholder}
         onChangeText={handleCurrencyChange}
-        style={styles.input}
+        style={[styles.input, { textAlign: align }]}
         keyboardType="number-pad"
       />
     </View>

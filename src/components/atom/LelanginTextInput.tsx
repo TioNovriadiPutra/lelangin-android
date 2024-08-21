@@ -21,6 +21,7 @@ type Props = {
   inputData: InputType;
   control: Control<any, any>;
   validationError?: ValidationError;
+  align?: "center" | "auto";
 };
 
 const LelanginTextInput = ({ inputData, control, validationError }: Props) => {

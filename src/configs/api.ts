@@ -17,9 +17,11 @@ export const API_ENDPOINT = {
   updateUserAddress: USER_PREFIX + "/address",
   getCommunities: COMMUNITY_PREFIX,
   getAuctionsUser: AUCTION_PREFIX,
+  getApproveAuctions: AUCTION_PREFIX + "/approve",
   getAuctionsByCommunity: AUCTION_PREFIX + "/community",
   getAuctionsByCategory: AUCTION_PREFIX + "/category",
   addAuction: AUCTION_PREFIX,
   bidAuction: AUCTION_PREFIX + "/bid",
+  paymentAuction: AUCTION_PREFIX + "/payment",
   getCategories: CATEGORY_PREFIX,
 };

@@ -7,9 +7,10 @@ import { AuctionItemDesc } from "@components/atom";
 
 type Props = {
   itemData: Auction;
+  type: "normal" | "order";
 };
 
-const AuctionItem = ({ itemData }: Props) => {
+const AuctionItem = ({ itemData, type }: Props) => {
   return (
     <View style={styles.container}>
       <Image
@@ -19,7 +20,7 @@ const AuctionItem = ({ itemData }: Props) => {
         style={styles.image}
       />
 
-      <AuctionItemDesc itemData={itemData} />
+      <AuctionItemDesc itemData={itemData} type={type} />
     </View>
   );
 };

@@ -21,4 +21,5 @@ export const colors = {
   Label: "#8E8E8E",
   Title: "#353535",
   Dot: "#B6B6B6",
+  Desc: "#524F4F",
 };

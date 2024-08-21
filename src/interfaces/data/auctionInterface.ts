@@ -5,6 +5,8 @@ export interface AuctionDTO {
   auction_name: string;
   timer: string;
   highest_bid: number;
+  approve: boolean;
+  status?: string;
   galleries: string[];
 }
 
@@ -12,6 +14,7 @@ export interface AuctionDetailDTO extends AuctionDTO {
   category_name: string;
   buy_now_price: number | null;
   description: string;
+  approve: boolean;
   profile_id: number;
 }
 
@@ -20,6 +23,8 @@ export interface Auction {
   auctionName: string;
   timer: string;
   highestBid: number;
+  approve: boolean;
+  status?: string;
   galleries: string[];
 }
 
@@ -27,6 +32,7 @@ export interface AuctionDetail extends Auction {
   categoryName: string;
   buyNowPrice: number | null;
   description: string;
+  approve: boolean;
   profileId: number;
 }
 
@@ -43,5 +49,5 @@ export interface AddAuction {
 }
 
 export interface BidAuction {
-  nominal?: number;
+  nominal?: string;
 }

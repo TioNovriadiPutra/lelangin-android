@@ -16,3 +16,5 @@ export { default as LelanginGalleryInput } from "./LelanginGalleryInput";
 export { default as AuctionItemDesc } from "./AuctionItemDesc";
 export { default as OvalButton } from "./OvalButton";
 export { default as CurrentBid } from "./CurrentBid";
+export { default as SwitchButton } from "./SwitchButton";
+export { default as Pricing } from "./Pricing";

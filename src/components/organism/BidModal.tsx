@@ -8,9 +8,15 @@ import { BidModalBox } from "@components/molecule";
 const BidModal = () => {
   const [bidModal, setBidModal] = useRecoilState(bidModalSelector);
 
+  const onHandleClose = () => {
+    setBidModal({ show: false, data: null });
+  };
+
   return (
     <ModalContainer visible={bidModal.show} modalStyles={styles.modal}>
-      <BidModalBox modalData={bidModal.data} />
+      {bidModal.data && (
+        <BidModalBox modalData={bidModal.data} onClose={onHandleClose} />
+      )}
     </ModalContainer>
   );
 };

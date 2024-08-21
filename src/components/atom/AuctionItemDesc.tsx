@@ -10,17 +10,34 @@ import { AppStackProps } from "@interfaces/navigationType";
 
 type Props = {
   itemData: Auction;
+  type: "normal" | "order";
 };
 
-const AuctionItemDesc = ({ itemData }: Props) => {
+const AuctionItemDesc = ({ itemData, type }: Props) => {
   const nav = useNavigation<AppStackProps>();
 
   const { time, done } = useAuctionItemDesc(itemData.timer);
 
   const onHandleDetail = () => {
-    nav.navigate("AuctionDetail", {
-      id: itemData.id,
-    });
+    if (type === "order") {
+      if (itemData.status === "Finish") {
+        nav.navigate("AuctionPayment", {
+          id: itemData.id,
+          auctionName: itemData.auctionName,
+          highestBid: itemData.highestBid,
+          status: itemData.status,
+          galleries: itemData.galleries,
+        });
+      } else {
+        nav.navigate("AuctionDetail", {
+          id: itemData.id,
+        });
+      }
+    } else {
+      nav.navigate("AuctionDetail", {
+        id: itemData.id,
+      });
+    }
   };
 
   return (
@@ -29,10 +46,17 @@ const AuctionItemDesc = ({ itemData }: Props) => {
         <Text
           style={[
             styles.desc,
-            { color: done ? colors.Danger : colors.Success },
+            {
+              color:
+                type === "order"
+                  ? colors.Success
+                  : done
+                  ? colors.Danger
+                  : colors.Success,
+            },
           ]}
         >
-          {done ? "Ended" : time}
+          {type === "order" ? itemData.status : done ? "Ended" : time}
         </Text>
 
         <Text style={[styles.desc, styles.title]}>{itemData.auctionName}</Text>

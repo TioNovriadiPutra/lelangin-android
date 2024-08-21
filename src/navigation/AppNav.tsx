@@ -5,6 +5,7 @@ import AuthRoute from "@routes/AuthRoute";
 import { linking } from "@configs/linking";
 import useStarter from "@hooks/useStarter";
 import {
+  ApproveModal,
   BidModal,
   DateModal,
   DropdownModal,
@@ -29,6 +30,7 @@ const AppNav = () => {
 
       <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
         <BidModal />
+        <ApproveModal />
         {auth.token ? <AppRoute /> : <AuthRoute />}
       </NavigationContainer>
 

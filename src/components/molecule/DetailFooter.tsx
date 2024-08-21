@@ -4,18 +4,17 @@ import { LelanginButton } from "@components/atom";
 import { colors } from "@themes/colors";
 
 type Props = {
-  buyNowPrice: number | null;
-  mine: boolean;
+  type: "mine" | "bid" | "buyNow" | "payment";
   onBid: () => void;
 };
 
-const DetailFooter = ({ buyNowPrice, mine, onBid }: Props) => {
+const DetailFooter = ({ type, onBid }: Props) => {
   return (
     <View style={styles.container}>
-      {buyNowPrice || mine ? (
+      {type === "mine" || type === "buyNow" ? (
         <LelanginButton
           buttonData={{
-            label: buyNowPrice ? "Buy Now" : "Delete",
+            label: type === "buyNow" ? "Buy Now" : "Delete",
             color: colors.Accent,
           }}
           buttonStyles={styles.buy}
@@ -24,7 +23,12 @@ const DetailFooter = ({ buyNowPrice, mine, onBid }: Props) => {
 
       <LelanginButton
         buttonData={{
-          label: mine ? "Approve" : "Place Bid Now",
+          label:
+            type === "mine"
+              ? "Approve"
+              : type === "payment"
+              ? "Confirm Payment"
+              : "Place Bid Now",
           color: colors.Main,
         }}
         buttonStyles={styles.bid}

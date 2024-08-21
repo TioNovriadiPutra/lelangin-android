@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authSelector } from "@store/authState";
 import { validationErrorState } from "@store/formState";
-import { isLoadingState } from "@store/pageState";
+import { bidModalSelector, isLoadingState } from "@store/pageState";
 import { toastSelector } from "@store/toastState";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
@@ -10,6 +10,7 @@ const useHelper = () => {
   const setIsLoading = useSetRecoilState(isLoadingState);
   const setValidationError = useSetRecoilState(validationErrorState);
   const setToast = useSetRecoilState(toastSelector);
+  const setBidModal = useSetRecoilState(bidModalSelector);
 
   const onMutate = () => {
     setIsLoading(true);
@@ -33,6 +34,7 @@ const useHelper = () => {
         type: "failed",
         message: error.error.message as string,
       });
+      setBidModal({ show: false, data: null });
     }
   };
 

@@ -4,13 +4,16 @@ import {
   Account,
   AccountEdit,
   AccountEditAddress,
+  AccountMyOrder,
   Auction,
   AuctionAdd,
   AuctionDetail,
+  AuctionPayment,
   Community,
   CommunityAdd,
   Home,
 } from "@pages/app";
+import SuccessPage from "@pages/app/SuccessPage";
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
@@ -130,6 +133,11 @@ const AppRoute = () => {
         options={{ headerShown: false }}
       />
       <AppStack.Screen
+        name="AuctionPayment"
+        component={AuctionPayment}
+        options={{ headerShown: false }}
+      />
+      <AppStack.Screen
         name="AccountEdit"
         component={AccountEdit}
         options={{ headerShown: false }}
@@ -137,6 +145,16 @@ const AppRoute = () => {
       <AppStack.Screen
         name="AccountEditAddress"
         component={AccountEditAddress}
+        options={{ headerShown: false }}
+      />
+      <AppStack.Screen
+        name="AccountMyOrder"
+        component={AccountMyOrder}
+        options={{ headerShown: false }}
+      />
+      <AppStack.Screen
+        name="SuccessPage"
+        component={SuccessPage}
         options={{ headerShown: false }}
       />
     </AppStack.Navigator>

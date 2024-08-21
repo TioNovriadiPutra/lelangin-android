@@ -8,14 +8,18 @@ import { AppStackProps } from "@interfaces/navigationType";
 import { useNavigation } from "@react-navigation/native";
 import {
   addAuction,
+  approveAuction,
   bidAuction,
+  getApproveAuctions,
   getAuctionDetail,
   getAuctionDropdown,
   getAuctionsByCategory,
   getAuctionsByCommunity,
   getUserAuctions,
+  getUserBids,
+  paymentAuction,
 } from "@services/auctionService";
-import { showBidModalState } from "@store/pageState";
+import { approveModalSelector, bidModalSelector } from "@store/pageState";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 
@@ -28,7 +32,8 @@ const useAuctionModel = (
 ) => {
   const nav = useNavigation<AppStackProps>();
 
-  const setBidModal = useSetRecoilState(showBidModalState);
+  const setBidModal = useSetRecoilState(bidModalSelector);
+  const setApproveModal = useSetRecoilState(approveModalSelector);
 
   const useGetUserAuctions = () =>
     useQuery({
@@ -54,6 +59,18 @@ const useAuctionModel = (
     useQuery({
       queryKey: ["getAuctionDetail"],
       queryFn: () => getAuctionDetail(token, id),
+    });
+
+  const useGetUserBids = () =>
+    useQuery({
+      queryKey: ["getUserBids"],
+      queryFn: () => getUserBids(token),
+    });
+
+  const useGetApproveAuctions = () =>
+    useQuery({
+      queryKey: ["getApproveAuctions"],
+      queryFn: () => getApproveAuctions(token),
     });
 
   const useGetAuctionDropdownMutation = () =>
@@ -116,10 +133,39 @@ const useAuctionModel = (
       onMutate,
       onSuccess: (response) => {
         onSuccess(response.message);
-        setBidModal(false);
+        setBidModal({ show: false, data: null });
+        nav.navigate("MainApp", {
+          screen: "Home",
+        });
+        queryClient.invalidateQueries({ queryKey: ["getAuctionsByCategory"] });
+      },
+      onError,
+      onSettled,
+    });
+
+  const useApproveAuctionMutation = () =>
+    useMutation({
+      mutationFn: (id: number) => approveAuction(token, id),
+      onMutate,
+      onSuccess: (response) => {
+        onSuccess(response.message);
+        setApproveModal({ show: false, data: null });
         nav.navigate("MainApp", {
           screen: "Auction",
         });
+        queryClient.invalidateQueries({ queryKey: ["getUserAuctions"] });
+      },
+      onError,
+      onSettled,
+    });
+
+  const usePaymentAuctionMutation = () =>
+    useMutation({
+      mutationFn: (id: number) => paymentAuction(token, id),
+      onSuccess: (response) => {
+        onSuccess(response.message);
+        nav.navigate("SuccessPage");
+        queryClient.invalidateQueries({ queryKey: ["getApproveAuctions"] });
       },
       onError,
       onSettled,
@@ -130,8 +176,12 @@ const useAuctionModel = (
     useGetAuctionsByCommunity,
     useGetAuctionsByCategory,
     useGetAuctionDetail,
+    useGetUserBids,
+    useGetApproveAuctions,
     useGetAuctionDropdownMutation,
     useBidAuctionMutation,
+    useApproveAuctionMutation,
+    usePaymentAuctionMutation,
   };
 };
 

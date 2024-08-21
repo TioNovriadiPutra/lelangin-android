@@ -27,10 +27,19 @@ export interface AppHeaderButton {
 
 export interface BidModal {
   show: boolean;
-  data: BidModalData;
+  data: BidModalData | null;
 }
 
 export interface BidModalData {
   highestBid: number;
   onBid: (data: any) => void | null;
+}
+
+export interface ApproveModal {
+  show: boolean;
+  data: ApproveModalData | null;
+}
+
+export interface ApproveModalData {
+  onApprove: () => void;
 }
