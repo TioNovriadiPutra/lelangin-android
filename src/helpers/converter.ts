@@ -17,8 +17,8 @@ export const monyConverter = (value: number): string => {
   return formatter.format(value);
 };
 
-export const moneyToNumberConverter = (value: string): number => {
+export const moneyToNumberConverter = (value: string): string => {
   const numberVal = value.substring(2).replace(".", "");
 
-  return parseInt(numberVal);
+  return numberVal;
 };

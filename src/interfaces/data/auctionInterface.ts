@@ -51,3 +51,7 @@ export interface AddAuction {
 export interface BidAuction {
   nominal?: string;
 }
+
+export interface ShippingAuction {
+  shippingCode: string;
+}

@@ -21,3 +21,4 @@ export { default as BidModalBox } from "./BidModalBox";
 export { default as ApproveModalBox } from "./ApproveModalBox";
 export { default as PaymentItem } from "./PaymentItem";
 export { default as Summary } from "./Summary";
+export { default as ShippingModalBox } from "./ShippingModalBox";

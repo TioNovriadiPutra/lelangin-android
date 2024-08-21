@@ -23,5 +23,7 @@ export const API_ENDPOINT = {
   addAuction: AUCTION_PREFIX,
   bidAuction: AUCTION_PREFIX + "/bid",
   paymentAuction: AUCTION_PREFIX + "/payment",
+  buyNowAuction: AUCTION_PREFIX + "/buy-now",
+  shippingAuction: AUCTION_PREFIX + "/shipping",
   getCategories: CATEGORY_PREFIX,
 };

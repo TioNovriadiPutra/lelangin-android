@@ -3,6 +3,8 @@ import {
   ApproveModalData,
   BidModal,
   BidModalData,
+  ShippingModal,
+  ShippingModalData,
 } from "@interfaces/pageInterface";
 import { atom, selector } from "recoil";
 
@@ -46,6 +48,16 @@ export const currentSwitchState = atom<number>({
   default: 0,
 });
 
+export const showShippingModalState = atom<boolean>({
+  key: "showShippingModalState",
+  default: false,
+});
+
+export const shippingModalDataState = atom<ShippingModalData | null>({
+  key: "shippingModalDataState",
+  default: null,
+});
+
 export const bidModalSelector = selector<BidModal>({
   key: "bidModalSelector",
   get: ({ get }) => {
@@ -81,5 +93,24 @@ export const approveModalSelector = selector<ApproveModal>({
 
     set(showApproveModalState, show);
     set(approveModalDataState, data);
+  },
+});
+
+export const shippingModalSelector = selector<ShippingModal>({
+  key: "shippingModalSelector",
+  get: ({ get }) => {
+    const show = get(showShippingModalState);
+    const data = get(shippingModalDataState);
+
+    return {
+      show,
+      data,
+    };
+  },
+  set: ({ set }, newValue) => {
+    const { show, data } = newValue as ShippingModal;
+
+    set(showShippingModalState, show);
+    set(shippingModalDataState, data);
   },
 });

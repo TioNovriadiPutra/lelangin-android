@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
   },
   list: {
+    paddingBottom: 72,
     gap: 14,
   },
 });

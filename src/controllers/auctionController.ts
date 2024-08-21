@@ -4,6 +4,7 @@ import {
   Auction,
   AuctionDetail,
   BidAuction,
+  ShippingAuction,
 } from "@interfaces/data/auctionInterface";
 import useAuctionModel from "@models/auctionModel";
 import { currentCategoryState, currentCommunityState } from "@store/pageState";
@@ -26,6 +27,8 @@ const useAuctionController = () => {
     useBidAuctionMutation,
     useApproveAuctionMutation,
     usePaymentAuctionMutation,
+    useBuyNowAuctionMutation,
+    useShippingAuctionMutation,
   } = useAuctionModel(auth.token, onMutate, onSuccess, onError, onSettled);
 
   const useGetUserAuctionsService = () => {
@@ -175,6 +178,10 @@ const useAuctionController = () => {
 
   const paymentAuctionMutation = usePaymentAuctionMutation();
 
+  const buyNowAuctionMutation = useBuyNowAuctionMutation();
+
+  const shippingAuctionMutation = useShippingAuctionMutation();
+
   return {
     useGetUserAuctionsService,
     useGetAuctionsByCommunityService,
@@ -187,6 +194,9 @@ const useAuctionController = () => {
       bidAuctionMutation.mutate(data),
     approveAuctionService: (id: number) => approveAuctionMutation.mutate(id),
     paymentAuctionService: (id: number) => paymentAuctionMutation.mutate(id),
+    buyNowAuctionService: (id: number) => buyNowAuctionMutation.mutate(id),
+    shippingAuctionService: (data: { id: number; data: ShippingAuction }) =>
+      shippingAuctionMutation.mutate(data),
   };
 };
 

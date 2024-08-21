@@ -6,9 +6,10 @@ import { colors } from "@themes/colors";
 type Props = {
   type: "mine" | "bid" | "buyNow" | "payment";
   onBid: () => void;
+  onBuyNow?: () => void;
 };
 
-const DetailFooter = ({ type, onBid }: Props) => {
+const DetailFooter = ({ type, onBid, onBuyNow }: Props) => {
   return (
     <View style={styles.container}>
       {type === "mine" || type === "buyNow" ? (
@@ -18,6 +19,7 @@ const DetailFooter = ({ type, onBid }: Props) => {
             color: colors.Accent,
           }}
           buttonStyles={styles.buy}
+          onPress={onBuyNow}
         />
       ) : null}
 

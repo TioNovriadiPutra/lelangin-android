@@ -24,7 +24,12 @@ type Props = {
   align?: "center" | "auto";
 };
 
-const LelanginTextInput = ({ inputData, control, validationError }: Props) => {
+const LelanginTextInput = ({
+  inputData,
+  control,
+  validationError,
+  align,
+}: Props) => {
   const [seePass, setSeePass] = useState(false);
 
   const { field } = useController({
@@ -66,6 +71,7 @@ const LelanginTextInput = ({ inputData, control, validationError }: Props) => {
         style={[
           styles.input,
           inputData.type === "textarea" && styles.inputTextArea,
+          { textAlign: align },
         ]}
         secureTextEntry={inputData.type === "password" ? !seePass : false}
         multiline={inputData.type === "textarea"}

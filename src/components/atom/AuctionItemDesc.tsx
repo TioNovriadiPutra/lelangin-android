@@ -7,6 +7,9 @@ import useAuctionItemDesc from "@hooks/useAuctionItemDesc";
 import { monyConverter } from "@helpers/converter";
 import { useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "@interfaces/navigationType";
+import { useSetRecoilState } from "recoil";
+import { shippingModalSelector } from "@store/pageState";
+import useAuctionController from "@controllers/auctionController";
 
 type Props = {
   itemData: Auction;
@@ -14,9 +17,15 @@ type Props = {
 };
 
 const AuctionItemDesc = ({ itemData, type }: Props) => {
+  const setShipping = useSetRecoilState(shippingModalSelector);
+
   const nav = useNavigation<AppStackProps>();
 
+  const { shippingAuctionService } = useAuctionController();
+
   const { time, done } = useAuctionItemDesc(itemData.timer);
+
+  console.log(itemData.status);
 
   const onHandleDetail = () => {
     if (type === "order") {
@@ -33,12 +42,22 @@ const AuctionItemDesc = ({ itemData, type }: Props) => {
           id: itemData.id,
         });
       }
+    } else if (itemData.status === "Shipping") {
+      setShipping({
+        show: true,
+        data: {
+          onSubmit: (data: any) =>
+            shippingAuctionService({ id: itemData.id, data }),
+        },
+      });
     } else {
       nav.navigate("AuctionDetail", {
         id: itemData.id,
       });
     }
   };
+
+  console.log(itemData.status);
 
   return (
     <TouchableOpacity style={styles.container} onPress={onHandleDetail}>
@@ -50,13 +69,17 @@ const AuctionItemDesc = ({ itemData, type }: Props) => {
               color:
                 type === "order"
                   ? colors.Success
-                  : done
+                  : done || itemData.status === "Finish"
                   ? colors.Danger
                   : colors.Success,
             },
           ]}
         >
-          {type === "order" ? itemData.status : done ? "Ended" : time}
+          {type === "order"
+            ? itemData.status
+            : done || itemData.status === "Finish"
+            ? "Ended"
+            : time}
         </Text>
 
         <Text style={[styles.desc, styles.title]}>{itemData.auctionName}</Text>

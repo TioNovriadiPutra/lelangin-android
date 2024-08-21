@@ -15,6 +15,7 @@ import { CustomToast } from "@components/molecule";
 import AppRoute from "@routes/AppRoute";
 import { StatusBar } from "expo-status-bar";
 import { colors } from "@themes/colors";
+import ShippingModal from "@components/organism/ShippingModal";
 
 const AppNav = () => {
   const { auth, fontsLoaded } = useStarter();
@@ -31,6 +32,7 @@ const AppNav = () => {
       <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
         <BidModal />
         <ApproveModal />
+        <ShippingModal />
         {auth.token ? <AppRoute /> : <AuthRoute />}
       </NavigationContainer>
 

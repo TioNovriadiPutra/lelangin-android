@@ -24,6 +24,7 @@ const AuctionDetail = ({ route }) => {
     useGetAuctionDetailService,
     bidAuctionService,
     approveAuctionService,
+    buyNowAuctionService,
   } = useAuctionController();
 
   const { finalData, isLoading } = useGetAuctionDetailService(id);
@@ -69,8 +70,18 @@ const AuctionDetail = ({ route }) => {
                   });
                 }
               }}
+              onBuyNow={() => {
+                if (finalData.buyNowPrice) {
+                  setApproveModal({
+                    show: true,
+                    data: {
+                      onApprove: () => buyNowAuctionService(finalData.id),
+                    },
+                  });
+                }
+              }}
             />
-          ) : (
+          ) : finalData.status === "Finish" ? null : (
             <DetailFooter
               type="payment"
               onBid={() =>

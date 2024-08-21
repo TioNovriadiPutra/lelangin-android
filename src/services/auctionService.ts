@@ -6,6 +6,7 @@ import {
   AuctionDetailDTO,
   AuctionDTO,
   BidAuction,
+  ShippingAuction,
 } from "@interfaces/data/auctionInterface";
 import { CategoryDTO } from "@interfaces/data/categoryInterface";
 import { CommunityDTO } from "@interfaces/data/communityInterface";
@@ -38,7 +39,7 @@ export const getAuctionsByCommunity = async (
       API_ENDPOINT.getAuctionsByCommunity,
       {
         params: {
-          community: id === 0 ? "" : id.toString(),
+          community: id === 0 ? "" : id,
         },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -285,6 +286,52 @@ export const paymentAuction = async (
   try {
     const response = await axiosInstance.get(
       `${API_ENDPOINT.paymentAuction}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const buyNowAuction = async (
+  token: string,
+  id: number
+): Promise<ApiResponse> => {
+  try {
+    const response = await axiosInstance.get(
+      `${API_ENDPOINT.buyNowAuction}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    throw axiosError.response.data;
+  }
+};
+
+export const shippingAuction = async (
+  token: string,
+  id: number,
+  data: ShippingAuction
+): Promise<ApiResponse> => {
+  try {
+    const response = await axiosInstance.post(
+      `${API_ENDPOINT.shippingAuction}/${id}`,
+      data,
       {
         headers: {
           Authorization: `Bearer ${token}`,

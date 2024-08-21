@@ -1,7 +1,7 @@
 import { queryClient } from "@configs/client";
 import { addAuctionForm } from "@constants/form";
 import { responseMapper } from "@helpers/mapper";
-import { BidAuction } from "@interfaces/data/auctionInterface";
+import { BidAuction, ShippingAuction } from "@interfaces/data/auctionInterface";
 import { Category } from "@interfaces/data/categoryInterface";
 import { Community } from "@interfaces/data/communityInterface";
 import { AppStackProps } from "@interfaces/navigationType";
@@ -10,6 +10,7 @@ import {
   addAuction,
   approveAuction,
   bidAuction,
+  buyNowAuction,
   getApproveAuctions,
   getAuctionDetail,
   getAuctionDropdown,
@@ -18,8 +19,13 @@ import {
   getUserAuctions,
   getUserBids,
   paymentAuction,
+  shippingAuction,
 } from "@services/auctionService";
-import { approveModalSelector, bidModalSelector } from "@store/pageState";
+import {
+  approveModalSelector,
+  bidModalSelector,
+  shippingModalSelector,
+} from "@store/pageState";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 
@@ -34,6 +40,7 @@ const useAuctionModel = (
 
   const setBidModal = useSetRecoilState(bidModalSelector);
   const setApproveModal = useSetRecoilState(approveModalSelector);
+  const setShippingModal = useSetRecoilState(shippingModalSelector);
 
   const useGetUserAuctions = () =>
     useQuery({
@@ -120,7 +127,7 @@ const useAuctionModel = (
       nav.navigate("MainApp", {
         screen: "Auction",
       });
-      queryClient.invalidateQueries({ queryKey: ["getAuctionsByCommunity"] });
+      queryClient.invalidateQueries({ queryKey: ["getUserAuctions"] });
     },
     onError,
     onSettled,
@@ -171,6 +178,32 @@ const useAuctionModel = (
       onSettled,
     });
 
+  const useBuyNowAuctionMutation = () =>
+    useMutation({
+      mutationFn: (id: number) => buyNowAuction(token, id),
+      onSuccess: (response) => {
+        onSuccess(response.message);
+        setApproveModal({ show: false, data: null });
+        nav.navigate("AccountMyOrder");
+        queryClient.invalidateQueries({ queryKey: ["getUserBids"] });
+      },
+      onError,
+      onSettled,
+    });
+
+  const useShippingAuctionMutation = () =>
+    useMutation({
+      mutationFn: (data: { id: number; data: ShippingAuction }) =>
+        shippingAuction(token, data.id, data.data),
+      onSuccess: (response) => {
+        onSuccess(response.message);
+        setShippingModal({ show: false, data: null });
+        queryClient.invalidateQueries({ queryKey: ["getUserAuctions"] });
+      },
+      onError,
+      onSettled,
+    });
+
   return {
     useGetUserAuctions,
     useGetAuctionsByCommunity,
@@ -182,6 +215,8 @@ const useAuctionModel = (
     useBidAuctionMutation,
     useApproveAuctionMutation,
     usePaymentAuctionMutation,
+    useBuyNowAuctionMutation,
+    useShippingAuctionMutation,
   };
 };
 

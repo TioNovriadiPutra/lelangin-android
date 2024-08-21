@@ -43,3 +43,12 @@ export interface ApproveModal {
 export interface ApproveModalData {
   onApprove: () => void;
 }
+
+export interface ShippingModal {
+  show: boolean;
+  data: ShippingModalData;
+}
+
+export interface ShippingModalData {
+  onSubmit: (data: any) => void;
+}

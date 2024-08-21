@@ -8,3 +8,4 @@ export { default as DetailHeader } from "./DetailHeader";
 export { default as DetailContent } from "./DetailContent";
 export { default as BidModal } from "./BidModal";
 export { default as ApproveModal } from "./ApproveModal";
+export { default as ShippingModel } from "./ShippingModal";
